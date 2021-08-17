@@ -1,8 +1,8 @@
 """
 Main script, runs all crawlers
 """
-import thingspeak_crawler
-from utilities import SQLConnectionHandler
+from classes import thingspeak_crawler
+from utilities.sql_connection_handler import SQLConnectionHandler
 
 
 def crawl():
