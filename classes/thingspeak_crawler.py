@@ -64,7 +64,7 @@ class ThingspeakCrawler:
 
 			for data in crawled_data:
 				# If the entry id is greater than what is already known, insert the new data
-				if int(data['entry_id']) > latest_existing_data[hive] or latest_existing_data[hive] is None:
+				if int(data['entry_id']) > latest_existing_data.get(hive, -1):
 					entry_timestamp = datetime.strptime(data['created_at'], '%Y-%m-%dT%H:%M:%SZ')
 
 					rows_to_insert.append((
