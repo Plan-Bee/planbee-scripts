@@ -50,7 +50,8 @@ class ThingspeakCrawler:
 		:return:
 		"""
 		cursor = connection.cursor()
-		cursor.execute('SELECT hive_id, MAX(data_id) FROM honeypi_data WHERE hive_id IN %s GROUP BY hive_id', (hives,))
+		cursor.execute('SELECT hive_id, MAX(thingspeak_id) FROM honeypi_data WHERE hive_id IN %s GROUP BY hive_id',
+					   (hives,))
 		rows = cursor.fetchall()
 		latest_existing_data = {}
 		for row in rows:
@@ -82,7 +83,7 @@ class ThingspeakCrawler:
 			return
 
 		cursor.executemany(
-			'INSERT INTO honeypi_data (data_id, timestamp, hive_id, broodroom_temperature, outdoor_temperature, outdoor_humidity, outdoor_airpressure, broodroom_humidity, hive_weight) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)',
+			'INSERT INTO honeypi_data (thingspeak_id, timestamp, hive_id, broodroom_temperature, outdoor_temperature, outdoor_humidity, outdoor_airpressure, broodroom_humidity, hive_weight) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)',
 			rows_to_insert)
 		connection.commit()
 		cursor.close()
