@@ -1,4 +1,5 @@
 import json
+import logging
 from datetime import datetime
 
 import pymysql
@@ -81,6 +82,8 @@ class ThingspeakCrawler:
 
 		if len(rows_to_insert) < 1:
 			return
+
+		logging.log(logging.INFO, 'Inserting {} new measure points'.format(len(rows_to_insert)))
 
 		cursor.executemany(
 			'INSERT INTO honeypi_data (thingspeak_id, timestamp, hive_id, broodroom_temperature, outdoor_temperature, outdoor_humidity, outdoor_airpressure, broodroom_humidity, hive_weight) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)',
